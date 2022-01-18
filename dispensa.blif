@@ -1,0 +1,204 @@
+#multiplexer a 2 ingressi da un bit 
+.model MUX2_1
+.inputs I0 i1 i0 
+.outputs O
+.names I0 i1 i0 O
+11- 1
+0-1 1
+
+#multiplexer a 4 ingressi da un bit 
+.model MUX4_1
+.inputs I1 I0 i3 i2 i1 i0
+.outputs O
+.names I1 I0 i3 i2 i1 i0 O
+101--- 1
+11-1-- 1
+01--1- 1
+00---1 1
+.end
+
+#registro a un bit
+.model REG 
+.inputs I
+.outputs O
+.latch I O re NIL 0
+.end
+
+#registro a 8 bit
+.model REG0_8
+.inputs I7 I6 I5 I4 I3 I2 I1 I0 
+.outputs O7 O6 O5 O4 O3 O2 O1 O0
+.subckt REG I=I7 O=O7 
+.subckt REG I=I6 O=O6
+.subckt REG I=I5 O=O5
+.subckt REG I=I4 O=O4
+.subckt REG I=I3 O=O3
+.subckt REG I=I2 O=O2
+.subckt REG I=I1 O=O1
+.subckt REG I=I0 O=O0
+.end
+
+#registro a un bit
+.model REG1 
+.inputs I
+.outputs O
+.latch I O re NIL 1
+.end
+
+#registro a 8 bit
+.model REG1_8
+.inputs I7 I6 I5 I4 I3 I2 I1 I0 
+.outputs O7 O6 O5 O4 O3 O2 O1 O0
+.subckt REG1 I=I7 O=O7 
+.subckt REG1 I=I6 O=O6
+.subckt REG1 I=I5 O=O5
+.subckt REG1 I=I4 O=O4
+.subckt REG1 I=I3 O=O3
+.subckt REG1 I=I2 O=O2
+.subckt REG1 I=I1 O=O1
+.subckt REG1 I=I0 O=O0
+.end
+
+
+
+
+
+#sommatore bit a bit
+.model SOMMA1_1
+.inputs A B CIN
+.outputs O COUT
+.names A B CIN COUT
+111 1
+110 1
+101 1
+011 1
+
+
+.names A B CIN O
+111 1
+001 1
+100 1
+010 1
+
+#costante 0 a un bit
+.model C0
+.outputs C0
+.names C0
+.end
+
+#sommatore a 8 bit
+.model SOMMA8_8
+.inputs A7 A6 A5 A4 A3 A2 A1 A0 B7 B6 B5 B4 B3 B2 B1 B0
+.outputs O7 O6 O5 O4 O3 O2 O1 O0 
+.subckt C0 C0=C0
+.subckt SOMMA1_1 A=A0 B=B0 CIN=C0 O=O0 COUT=C1
+.subckt SOMMA1_1 A=A1 B=B1 CIN=C1 O=O1 COUT=C2
+.subckt SOMMA1_1 A=A2 B=B2 CIN=C2 O=O2 COUT=C3
+.subckt SOMMA1_1 A=A3 B=B3 CIN=C3 O=O3 COUT=C4
+.subckt SOMMA1_1 A=A4 B=B4 CIN=C4 O=O4 COUT=C5
+.subckt SOMMA1_1 A=A5 B=B5 CIN=C5 O=O5 COUT=C6
+.subckt SOMMA1_1 A=A6 B=B6 CIN=C6 O=O6 COUT=C7
+.subckt SOMMA1_1 A=A7 B=B7 CIN=C7 O=O7 COUT=COUT
+.end
+
+#sottrazione bit a bit 
+.model SOTT1_1
+.inputs A B CIN
+.outputs O COUT
+.names A B CIN COUT
+01- 1
+111 1
+001 1
+.names A B CIN O
+010 1
+100 1
+111 1
+001 1
+
+#sottrazione a 8 bit
+.model SOTT8_8
+.inputs A7 A6 A5 A4 A3 A2 A1 A0 B7 B6 B5 B4 B3 B2 B1 B0 
+.outputs O7 O6 O5 O4 O3 O2 O1 O0 
+.subckt C0 C0=C0
+.subckt SOTT1_1 A=A0 B=B0 CIN=C0 O=O0 COUT=C1
+.subckt SOTT1_1 A=A1 B=B1 CIN=C1 O=O1 COUT=C2
+.subckt SOTT1_1 A=A2 B=B2 CIN=C2 O=O2 COUT=C3
+.subckt SOTT1_1 A=A3 B=B3 CIN=C3 O=O3 COUT=C4
+.subckt SOTT1_1 A=A4 B=B4 CIN=C4 O=O4 COUT=C5
+.subckt SOTT1_1 A=A5 B=B5 CIN=C5 O=O5 COUT=C6
+.subckt SOTT1_1 A=A6 B=B6 CIN=C6 O=O6 COUT=C7
+.subckt SOTT1_1 A=A7 B=B7 CIN=C7 O=O7 COUT=C8
+.end
+
+
+
+#costante 1 a un bit
+.model C1
+.outputs C1
+.names C1
+1
+.end
+
+
+
+
+
+
+
+#uguaglianza a un bit 
+.model UG1_1
+.inputs A B
+.outputs O
+.names A B O
+00 1
+11 1
+
+#uguaglianza a 8 bit
+.model UG8_8
+.inputs A7 A6 A5 A4 A3 A2 A1 A0 B7 B6 B5 B4 B3 B2 B1 B0
+.outputs O
+.subckt UG1_1 A=A0 B=B0 O=O0
+.subckt UG1_1 A=A1 B=B1 O=O1
+.subckt UG1_1 A=A2 B=B2 O=O2
+.subckt UG1_1 A=A3 B=B3 O=O3
+.subckt UG1_1 A=A4 B=B4 O=O4
+.subckt UG1_1 A=A5 B=B5 O=O5
+.subckt UG1_1 A=A6 B=B6 O=O6
+.subckt UG1_1 A=A7 B=B7 O=O7
+.names O0 O1 O2 O3 O4 O5 O6 O7 O
+11111111 1
+.end
+
+#mux a 2 ingressi da 8 bit
+.model MUX2_8
+.inputs I0 A7 A6 A5 A4 A3 A2 A1 A0 B7 B6 B5 B4 B3 B2 B1 B0
+.outputs O7 O6 O5 O4 O3 O2 O1 O0
+.subckt MUX2_1 I0=I0 i1=A0 i0=B0 O=O0
+.subckt MUX2_1 I0=I0 i1=A1 i0=B1 O=O1
+.subckt MUX2_1 I0=I0 i1=A2 i0=B2 O=O2
+.subckt MUX2_1 I0=I0 i1=A3 i0=B3 O=O3
+.subckt MUX2_1 I0=I0 i1=A4 i0=B4 O=O4
+.subckt MUX2_1 I0=I0 i1=A5 i0=B5 O=O5
+.subckt MUX2_1 I0=I0 i1=A6 i0=B6 O=O6
+.subckt MUX2_1 I0=I0 i1=A7 i0=B7 O=O7
+.end
+
+#mux a 4 ingressi da 8 bit
+.model MUX4_8
+.inputs I1 I0 A7 A6 A5 A4 A3 A2 A1 A0 B7 B6 B5 B4 B3 B2 B1 B0 C7 C6 C5 C4 C3 C2 C1 C0 D7 D6 D5 D4 D3 D2 D1 D0
+.outputs O7 O6 O5 O4 O3 O2 O1 O0
+.subckt MUX4_1 I1=I1 I0=I0 i3=A0 i2=B0 i1=C0 i0=D0 O=O0
+.subckt MUX4_1 I1=I1 I0=I0 i3=A1 i2=B1 i1=C1 i0=D1 O=O1
+.subckt MUX4_1 I1=I1 I0=I0 i3=A2 i2=B2 i1=C2 i0=D2 O=O2
+.subckt MUX4_1 I1=I1 I0=I0 i3=A3 i2=B3 i1=C3 i0=D3 O=O3
+.subckt MUX4_1 I1=I1 I0=I0 i3=A4 i2=B4 i1=C4 i0=D4 O=O4
+.subckt MUX4_1 I1=I1 I0=I0 i3=A5 i2=B5 i1=C5 i0=D5 O=O5
+.subckt MUX4_1 I1=I1 I0=I0 i3=A6 i2=B6 i1=C6 i0=D6 O=O6
+.subckt MUX4_1 I1=I1 I0=I0 i3=A7 i2=B7 i1=C7 i0=D7 O=O7
+.end
+
+
+
+
+
+
